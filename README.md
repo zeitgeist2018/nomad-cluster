@@ -14,3 +14,9 @@ The key needs to have write access for the following services:
 * Deploy cluster: `make tf-apply`
 * Destroy cluster: `make tf-destroy`
 * SSH into a node: `NODE=${node number} make ssh-node`
+
+## Provisioning
+The nodes will provision themselves. It will take some minutes.
+You will know it's finished when the file `/provision.txt` is created
+in the node.
+You can also see the progress by executing `tail -f /root/provision-log`.

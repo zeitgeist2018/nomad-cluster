@@ -1,5 +1,7 @@
 #!/bin/bash
 
+exec >/root/provision-log 2>/root/provision-err
+
 PUBLIC_IP="$(hostname --all-ip-addresses | awk '{print $1}')"
 PRIVATE_IP="$(hostname --all-ip-addresses | awk '{print $2}')"
 
