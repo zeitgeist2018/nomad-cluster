@@ -11,4 +11,4 @@ tf-destroy:
 	make -C terraform destroy
 
 ssh-node:
-	ssh -i ./terraform/output/private-key.pem "root@${NODE_IP}"
+	ssh -i ./terraform/output/private-key.pem -o StrictHostKeychecking=no "root@${NODE_IP}"
