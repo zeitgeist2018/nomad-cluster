@@ -15,7 +15,7 @@ installAnsible() {
 }
 
 provision() {
-  wget -O nomad-cluster.zip https://api.github.com/repos/zeitgeist2018/nomad-cluster/zipball/v0.1
+  wget -O nomad-cluster.zip https://api.github.com/repos/zeitgeist2018/nomad-cluster/zipball/
   unzip nomad-cluster.zip
   rm nomad-cluster.zip
   cd zeitgeist2018*/ansible
