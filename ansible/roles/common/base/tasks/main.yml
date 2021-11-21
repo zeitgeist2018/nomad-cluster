@@ -1,0 +1,6 @@
+---
+
+- name: Base tasks
+  import_tasks: base.yml
+- name: Docker
+  import_tasks: docker.yml

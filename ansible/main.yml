@@ -1,0 +1,7 @@
+---
+
+- name: Provision node
+  hosts: localhost
+  connection: local
+  roles:
+    - role: common/base

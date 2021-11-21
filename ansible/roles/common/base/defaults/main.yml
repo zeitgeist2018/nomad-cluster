@@ -1,0 +1,4 @@
+---
+
+tpl_version: v0.4.6
+tpl_url: "https://github.com/schneidexe/tpl/releases/download/{{ tpl_version }}/tpl-linux-amd64"
