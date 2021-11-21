@@ -7,5 +7,8 @@ tf-plan:
 tf-apply: tf-plan
 	make -C terraform apply
 
+tf-destroy:
+	make -C terraform destroy
+
 ssh-node:
 	ssh -i ./terraform/output/private-key.pem "root@${NODE_IP}"
