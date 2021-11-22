@@ -3,5 +3,6 @@
 - name: Provision node
   hosts: localhost
   connection: local
+  become: yes
   roles:
     - role: common/base

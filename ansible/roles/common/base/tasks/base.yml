@@ -2,18 +2,15 @@
 
 # Basic stuff
 - name: remove unnecessary packages
-  become: yes
   apt:
     name:
       - java
     state: absent
 - name: update all packages
-  become: yes
   apt:
     name: '*'
     state: latest
 - name: install basic tools
-  become: yes
   apt:
     name:
       - jq
@@ -21,13 +18,11 @@
 
 # Install TPL
 - name: Download tpl
-  become: yes
   get_url:
     url: "{{ tpl_url }}"
     dest: "/usr/local/bin/tpl"
 
 - name: Adjust tpl permissions
-  become: yes
   file:
     path: /usr/local/bin/tpl
     mode: +x

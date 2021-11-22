@@ -1,14 +1,12 @@
 ---
 
 - name: install docker
-  become: yes
   apt:
     name:
       - docker.io
       - docker-compose
     state: latest
 - name: Start Docker service
-  become: yes
   service:
     name: docker
     state: started
