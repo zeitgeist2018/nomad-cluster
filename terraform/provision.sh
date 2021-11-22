@@ -30,3 +30,5 @@ installAnsible
 provision
 
 echo "Node provisioned" > /provision.txt
+
+echo "Node provisioned successfully!"
