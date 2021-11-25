@@ -1,0 +1,11 @@
+[Unit]
+Description="Nomad service"
+[Service]
+User=root
+Group=root
+Type=simple
+Restart=always
+RestartSec=10000
+ExecStart=/usr/bin/nomad agent -config "/etc/nomad.d/nomad.json"
+[Install]
+WantedBy=multi-user.target

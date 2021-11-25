@@ -1,0 +1,18 @@
+---
+
+- name: Copy node-discovery job
+  copy: src=node-discovery.py dest=/root/node-discovery.py
+
+- name: Create log directory
+  file: path=/var/log/node-discovery state=directory
+
+- name: Install node-discovery job
+  cron:
+    name: "Discover nomad nodes"
+    month: "*"
+    weekday: "*"
+    day: "*"
+    hour: "*"
+    minute: "*"
+    job: "/usr/bin/python3 /root/node-discovery.py > /var/log/node-discovery/node-discovery.log 2>&1"
+    disabled: "no"

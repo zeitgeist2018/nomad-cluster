@@ -1,0 +1,80 @@
+---
+
+- name: Download nomad
+  get_url:
+    url: "https://releases.hashicorp.com/nomad/{{ nomad_version }}/nomad_{{ nomad_version }}_linux_amd64.zip"
+    dest: "/{{ user }}/nomad.zip"
+
+- name: Unzip nomad
+  unarchive:
+    src: "/{{ user }}/nomad.zip"
+    dest: "/{{ user }}"
+    copy: no
+
+- name: Install nomad
+  shell: install nomad /usr/bin/nomad
+
+- name: Create nomad file
+  file:
+    path: /etc/nomad.d
+    state: directory
+
+- name: Adjust nomad file permissions
+  file:
+    path: /etc/nomad.d
+    mode: a+w
+
+- name: Copy config file
+  template:
+    src: etc/nomad.d/nomad.json.j2
+    dest: /etc/nomad.d/nomad.json
+
+- name: Create log folder
+  file:
+    path: "{{ nomad_log_path }}"
+    state: directory
+
+- name: Copy service file
+  template:
+    src: etc/systemd/system/nomad.service.j2
+    dest: /etc/systemd/system/nomad.service
+
+- name: Adjust nomad service permissions
+  file:
+    path: /etc/systemd/system/nomad.service
+    owner: root
+    group: root
+    mode: 755
+
+- name: Download CNI plugins
+  get_url:
+    url: "https://github.com/containernetworking/plugins/releases/download/v0.9.1/cni-plugins-linux-amd64-v0.9.1.tgz"
+    dest: "/{{ user }}/cni-plugins.tgz"
+
+- name: Create CNI plugins folder
+  file:
+    path: "/opt/cni/bin"
+    state: directory
+
+- name: Unarchive CNI plugins
+  unarchive:
+    src: "/{{ user }}/cni-plugins.tgz"
+    dest: "/opt/cni/bin"
+    copy: no
+
+- name: Reload systemctl daemon
+  shell: systemctl daemon-reload
+
+- name: Enable service
+  shell: systemctl enable nomad
+
+- name: Start service
+  shell: systemctl start nomad
+
+- name: cleanup
+  file:
+    path: '{{ item }}'
+    state: absent
+  with_items:
+    - "/{{ user }}/nomad.zip"
+    - "/{{ user }}/nomad"

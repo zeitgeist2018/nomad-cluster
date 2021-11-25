@@ -1,0 +1,61 @@
+---
+
+- name: Download consul
+  get_url:
+    url: "https://releases.hashicorp.com/consul/{{ consul_version }}/consul_{{ consul_version }}_linux_amd64.zip"
+    dest: "/{{ user }}/consul.zip"
+
+- name: Unzip consul
+  unarchive:
+    src: "/{{ user }}/consul.zip"
+    dest: "/{{ user }}"
+    copy: no
+
+- name: Install consul
+  shell: install consul /usr/bin/consul
+
+- name: Create consul file
+  file:
+    path: /etc/consul.d
+    state: directory
+
+- name: Adjust consul file permissions
+  file:
+    path: /etc/consul.d
+    mode: a+w
+
+- name: Copy config file
+  template:
+    src: etc/consul.d/consul.hcl.j2
+    dest: /etc/consul.d/consul.hcl
+
+- name: Create log folder
+  file:
+    path: "{{ consul_log_path }}"
+    state: directory
+
+- name: Copy service file
+  template:
+    src: etc/systemd/system/consul.service.j2
+    dest: /etc/systemd/system/consul.service
+
+- name: Adjust consul service permissions
+  file:
+    path: /etc/systemd/system/consul.service
+    owner: root
+    group: root
+    mode: 755
+
+- name: Reload systemctl daemon
+  shell: systemctl daemon-reload
+
+- name: Enable service
+  shell: systemctl enable consul
+
+- name: cleanup
+  file:
+    path: '{{ item }}'
+    state: absent
+  with_items:
+    - "/{{ user }}/consul.zip"
+    - "/{{ user }}/consul"

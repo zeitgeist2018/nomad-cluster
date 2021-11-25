@@ -1,0 +1,11 @@
+[Unit]
+Description="Consul service"
+[Service]
+User=root
+Group=root
+Type=simple
+Restart=always
+RestartSec=10000
+ExecStart=/usr/bin/consul agent -config-file "/etc/consul.d/consul.hcl"
+[Install]
+WantedBy=multi-user.target
