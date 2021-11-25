@@ -6,7 +6,7 @@ PUBLIC_IP="$(hostname --all-ip-addresses | awk '{print $1}')"
 PRIVATE_IP="$(hostname --all-ip-addresses | awk '{print $2}')"
 LINODE_API_KEY="${linode_api_key}"
 
-echo "export LINODE_API_KEY=$LINODE_API_KEY" >> $HOME/.bashrc
+echo "LINODE_API_KEY=\"$LINODE_API_KEY\"" >> /etc/environment
 
 prepareSystem() {
   apt update -y
