@@ -27,6 +27,7 @@ provision() {
   unzip nomad-cluster.zip
   rm nomad-cluster.zip
   cd zeitgeist2018*/ansible
+  echo $'\e[1;33m'Running Ansible playbook$'\e[0m'
   ansible-playbook main.yml
 }
 
