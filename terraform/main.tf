@@ -11,13 +11,13 @@ resource tls_private_key ssh_key {
 
 resource local_file private_key_file {
   content  = tls_private_key.ssh_key.private_key_pem
-  filename = "${local.output_folder}/private-key.pem"
+  filename = "${local.output_folder}/key"
   file_permission = "600"
 }
 
 resource local_file public_key_file {
-  content  = tls_private_key.ssh_key.public_key_pem
-  filename = "${local.output_folder}/public-key.pem"
+  content  = tls_private_key.ssh_key.public_key_openssh
+  filename = "${local.output_folder}/key.pub"
   file_permission = "600"
 }
 

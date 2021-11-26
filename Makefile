@@ -9,6 +9,7 @@ tf-apply: tf-plan
 
 tf-destroy:
 	@make -C terraform destroy
+	@rm -r ./terraform/output
 
 ssh-node:
-	@ssh -i ./terraform/output/private-key.pem -o StrictHostKeychecking=no "root@${NODE_IP}"
+	@ssh -i ./terraform/output/key -o StrictHostKeychecking=no -o IdentitiesOnly=yes "root@${NODE_IP}"
