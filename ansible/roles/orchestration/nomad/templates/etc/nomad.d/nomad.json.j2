@@ -4,34 +4,25 @@
   "region": "{{ datacenter_region }}",
   "server": {
     "enabled": true,
-    "bootstrap_expect": 1,
     "job_gc_threshold": "1m",
     "server_join": {
-      "retry_join": [{% set comma = joiner(",") %}{% for node_ip in node_ips %}{{ comma() }}"{{ node_ip }}"{% endfor %}],
+      "retry_join": [{{ ansible_facts['eth0']['ipv4_secondaries'][0]['address'] }}],
       "retry_max": 0,
       "retry_interval": "5s"
     }
   },
   "advertise": {
     "http": "{{ ansible_facts['eth0']['ipv4']['address'] }}",
-    "rpc": "{{ ansible_facts['eth0']['ipv4']['address'] }}",
-    "serf": "{{ ansible_facts['eth0']['ipv4']['address'] }}"
+    "rpc": "{{ ansible_facts['eth0']['ipv4_secondaries'][0]['address'] }}",
+    "serf": "{{ ansible_facts['eth0']['ipv4_secondaries'][0]['address'] }}"
   },
   "client": {
     "enabled": true,
     "gc_interval": "10s",
     "server_join": {
-      "retry_join": [{% set comma = joiner(",") %}{% for node_ip in node_ips %}{{ comma() }}"{{ node_ip }}"{% endfor %}],
+      "retry_join": [{{ ansible_facts['eth0']['ipv4_secondaries'][0]['address'] }}],
       "retry_max": 0,
       "retry_interval": "5s"
     }
-  },
-  "consul": {
-    "address": "{{ ansible_facts['eth0']['ipv4']['address'] }}:8500",
-    "server_service_name": "nomad-server",
-    "client_service_name": "nomad-client",
-    "auto_advertise": true,
-    "server_auto_join": true,
-    "client_auto_join": true
   }
 }
