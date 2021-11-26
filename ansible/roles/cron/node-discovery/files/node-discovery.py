@@ -83,7 +83,6 @@ def update_nomad_configuration(nomad_nodes):
         if config_diff(config_backup, config):
             logging.info(f'Nomad configuration has changed')
             write_nomad_config_file(config)
-            service_action('nomad', 'restart')
             return True
         else:
             logging.info('No changes detected')
@@ -121,14 +120,27 @@ def nomad_running_properly():
     return os.system('nomad agent-info > /dev/null 2>&1') == 0
 
 
+def is_node_running_properly():
+    try:
+        req = requests.get(f'http://0.0.0.0:4646/v1/agent/self')
+        if req.status_code == 200:
+            return req.json()['member']['Status'] == "alive"
+    except (Exception,):
+        pass
+    return False
+
+
 def main():
-    nodes = discover_nomad_nodes()
-    if i_am_the_only_node_and_have_errors(nodes):
-        self_heal(nodes)
-    else:
-        if update_nomad_configuration(nodes):
-            service_action('nomad', 'restart')
-        elif not nomad_running_properly():
+    if not is_node_running_properly():
+        nodes = discover_nomad_nodes()
+        if i_am_the_only_node_and_have_errors(nodes):
             self_heal(nodes)
+        else:
+            if update_nomad_configuration(nodes):
+                service_action('nomad', 'restart')
+            elif not nomad_running_properly():
+                self_heal(nodes)
+    else:
+        logging.debug('Node running properly, nothing to do')
 
 main()
