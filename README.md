@@ -19,4 +19,4 @@ The key needs to have write access for the following services:
 The nodes will provision themselves. It will take some minutes.
 You will know it's finished when the file `/provision.txt` is created
 in the node.
-You can also see the progress by executing `tail -f /root/provision-log`.
+You can also see the progress by executing `tail -f /var/log/provision/provision.log`.
