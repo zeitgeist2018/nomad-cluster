@@ -12,7 +12,7 @@
     copy: no
 
 - name: Install nomad
-  shell: install nomad /usr/bin/nomad
+  shell: install /{{ user }}/nomad /usr/bin/nomad
 
 - name: Create nomad file
   file:
