@@ -22,8 +22,9 @@ installAnsible() {
 }
 
 provision() {
-  echo $'\e[1;33m'Downloading provisioning assets$'\e[0m'
-  wget -O nomad-cluster.zip https://api.github.com/repos/zeitgeist2018/nomad-cluster/zipball/
+  TAG=$(curl -s https://api.github.com/repos/zeitgeist2018/nomad-cluster/releases/latest | jq -r '.tag_name')
+  echo $'\e[1;33m'Downloading provisioning assets \("$TAG"\)$'\e[0m'
+  wget -O nomad-cluster.zip "https://api.github.com/repos/zeitgeist2018/nomad-cluster/zipball/$TAG"
   unzip nomad-cluster.zip
   rm nomad-cluster.zip
   cd zeitgeist2018*/ansible
