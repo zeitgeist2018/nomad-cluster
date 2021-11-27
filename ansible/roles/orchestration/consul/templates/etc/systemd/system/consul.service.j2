@@ -6,6 +6,6 @@ Group=root
 Type=simple
 Restart=always
 RestartSec=10000
-ExecStart=/usr/bin/consul agent -config-file "/etc/consul.d/consul.hcl"
+ExecStart=/usr/bin/consul agent -config-file "/etc/consul.d/consul.json"
 [Install]
 WantedBy=multi-user.target

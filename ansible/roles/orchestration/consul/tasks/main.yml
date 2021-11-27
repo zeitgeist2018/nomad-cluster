@@ -26,12 +26,12 @@
 
 - name: Copy config file
   template:
-    src: etc/consul.d/consul.hcl.j2
-    dest: /etc/consul.d/consul.hcl
+    src: etc/consul.d/consul.json.j2
+    dest: /etc/consul.d/consul.json
 
 - name: Create log folder
   file:
-    path: "{{ consul_log_path }}"
+    path: /var/log/consul
     state: directory
 
 - name: Copy service file
@@ -51,6 +51,9 @@
 
 - name: Enable service
   shell: systemctl enable consul
+
+- name: Start service
+  shell: systemctl restart consul
 
 - name: cleanup
   file:

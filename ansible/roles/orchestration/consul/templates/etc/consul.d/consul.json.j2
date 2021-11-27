@@ -1,0 +1,15 @@
+{
+    "data_dir": "/etc/consul/server",
+    "server": true,
+    "advertise_addr": "{{ ansible_facts['eth0']['ipv4_secondaries'][0]['address'] }}",
+    "client_addr": "{{ ansible_facts['eth0']['ipv4_secondaries'][0]['address'] }}",
+    "ui_config": {
+        "enabled": true
+    },
+    "datacenter": "{{ datacenter_name }}",
+    "ports": {
+        "dns": 1053
+    },
+    "retry_join": ["{{ ansible_facts['eth0']['ipv4_secondaries'][0]['address'] }}"]
+}
+
