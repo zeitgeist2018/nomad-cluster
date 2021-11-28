@@ -8,4 +8,4 @@
     - role: common/base
     - role: cron/node-discovery
     - role: orchestration/nomad
-#    - role: orchestration/consul
+    - role: orchestration/consul
