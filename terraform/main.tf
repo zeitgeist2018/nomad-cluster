@@ -40,7 +40,7 @@ resource linode_stackscript init_script {
   label = "nomad-node-provision"
   description = "Provisions a Nomad node"
   script = templatefile("provision.sh", {
-    linode_api_key = var.linode_api_key,
+    linode_token = var.linode_token,
     slack_token = var.slack_token
   })
   images = ["linode/ubuntu21.10"]
@@ -51,6 +51,7 @@ resource linode_instance nomad-nodes {
   image           = "linode/ubuntu21.10"
   label           = "nomad-node-${count.index}"
   group           = "Nomad"
+  tags = ["nomad-node"]
   region          = "ca-central"
   type            = "g6-nanode-1"
   backups_enabled = false

@@ -1,4 +1,4 @@
-variable linode_api_key {
+variable linode_token {
   type = string
 }
 

@@ -13,7 +13,7 @@ class NodeService:
         self.nomad_config_file = '/etc/nomad.d/nomad.json'
         self.nomad_config_file_tmp = '/etc/nomad.d/nomad.json.tmp'
         self.own_ip = os.popen('hostname --all-ip-addresses | awk \'{print $2}\'').read().strip()
-        self.api_key = os.getenv('LINODE_API_KEY')
+        self.api_key = os.getenv('LINODE_TOKEN')
 
     def discover_nomad_nodes(self):
         api_url = "https://api.linode.com/v4/linode/instances"
@@ -92,10 +92,8 @@ class NodeService:
     def is_node_healthy(self, nodes):
         try:
             req = requests.get(f'http://0.0.0.0:4646/v1/agent/self')
-            print(req.status_code)
             node_healthy = req.status_code == 200 and req.json()['member']['Status'] == "alive"
             connected_to_cluster = self.is_node_connected_to_cluster(nodes)
-            log.info(f"connected_to_cluster: {connected_to_cluster}")
             return node_healthy and connected_to_cluster
         except (Exception,) as e:
             log.err(f'Error checking if node is healthy: {e}')

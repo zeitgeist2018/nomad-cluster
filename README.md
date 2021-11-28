@@ -5,7 +5,7 @@ You need to install the following:
 ## Preparations
 * Create the file `terraform/terraform.tfvars`, and provide the following content:
    ```
-   linode_api_key = "Your Linode API key. It needs to have write access for Linodes and StackScripts"
+   linode_token = "Your Linode API key. It needs to have write access for Linodes and StackScripts"
    slack_token = "Your Slack token. It needs to have the scopes chat:write and chat:write.public"
    ```
 * In your Slack workspace, create the channel `#infrastructure-events`

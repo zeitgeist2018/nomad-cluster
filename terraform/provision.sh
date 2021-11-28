@@ -3,10 +3,10 @@
 mkdir -p /var/log/provision
 exec >/var/log/provision/provision.log 2>/var/log/provision/provision-error.log
 
-LINODE_API_KEY="${linode_api_key}"
+LINODE_TOKEN="${linode_token}"
 SLACK_TOKEN="${slack_token}"
 
-echo "LINODE_API_KEY=\"$LINODE_API_KEY\"" >> /etc/environment
+echo "LINODE_TOKEN=\"$LINODE_TOKEN\"" >> /etc/environment
 echo "SLACK_TOKEN=\"$SLACK_TOKEN\"" >> /etc/environment
 
 addAlias(){

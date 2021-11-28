@@ -10,5 +10,5 @@ terraform {
 }
 
 provider linode {
-  token = var.linode_api_key
+  token = var.linode_token
 }
