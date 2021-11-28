@@ -1,11 +1,12 @@
 ---
 
 - name: Provision node
-  hosts: localhost
-  connection: local
+  hosts: node1
+#  hosts: localhost
+#  connection: local
   become: yes
   roles:
-    - role: common/base
+#    - role: common/base
     - role: cron/node-discovery
-    - role: orchestration/nomad
-    - role: orchestration/consul
+#    - role: orchestration/nomad
+#    - role: orchestration/consul

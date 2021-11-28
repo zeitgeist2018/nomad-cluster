@@ -24,5 +24,5 @@
     day: "*"
     hour: "*"
     minute: "*"
-    job: "/usr/bin/python3 /root/node-discovery/node-discovery.py > /var/log/node-discovery/node-discovery.log 2>&1"
+    job: "/usr/bin/python3 /root/node-discovery/node_discovery.py > /var/log/node-discovery/node_discovery.log 2>&1"
     disabled: "no"
