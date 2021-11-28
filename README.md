@@ -1,22 +1,23 @@
 ## Requirements
-You need to install `Terraform` and [tfenv](https://github.com/tfutils/tfenv) 
+You need to install the following:
+* [tfenv](https://github.com/tfutils/tfenv)
 
 ## Preparations
-You need to create an API key in Linode, and provide it in a file
-called `terraform.tfvars`, inside `terraform` folder.
-The key needs to have write access for the following services:
-- Linodes
-- IP's
-- StackScripts
+* Create the file `terraform/terraform.tfvars`, and provide the following content:
+   ```
+   linode_api_key = "Your Linode API key. It needs to have write access for Linodes and StackScripts"
+   slack_token = "Your Slack token. It needs to have the scopes chat:write and chat:write.public"
+   ```
+* In your Slack workspace, create the channel `#infrastructure-events`
 
 ## Available commands
 
-* Deploy cluster: `make tf-apply`
-* Destroy cluster: `make tf-destroy`
-* SSH into a node: `NODE=${node number} make ssh-node`
+* `make tf-plan`: Calculate Terraform plan
+* `make tf-apply`: Deploy the cluster in Linode
+* `make tf-destroy`: 🔥Destroy the whole cluster🔥
+* `NODE=${node number} make ssh-node`: SSH into a node
 
 ## Provisioning
-The nodes will provision themselves. It will take some minutes.
-You will know it's finished when the file `/provision.txt` is created
-in the node.
-You can also see the progress by executing `tail -f /var/log/provision/provision.log`.
+The nodes will provision themselves, it will take some minutes.
+They will send a message to the Slack channel to inform you about important events.
+Also, you can `ssh` into a node, and see provisioning logs with `tail -f /var/log/provision/provision.log`.
