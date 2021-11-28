@@ -1,15 +1,18 @@
 {
     "data_dir": "/etc/consul/server",
+    "log_level": "debug",
+    "enable_debug": true,
     "server": true,
+    "bootstrap": true,
+    "bootstrap_expect": 1,
+    "node_name": "consul-node--{{ ansible_facts['eth0']['ipv4_secondaries'][0]['address'] | replace('.','-') }}",
+    "rejoin_after_leave": true,
+    "retry_interval": "10s",
     "advertise_addr": "{{ ansible_facts['eth0']['ipv4_secondaries'][0]['address'] }}",
-    "client_addr": "{{ ansible_facts['eth0']['ipv4_secondaries'][0]['address'] }}",
+    "client_addr": "{{ ansible_facts['eth0']['ipv4']['address'] }}",
     "ui_config": {
         "enabled": true
     },
-    "datacenter": "{{ datacenter_name }}",
-    "ports": {
-        "dns": 1053
-    },
-    "retry_join": ["{{ ansible_facts['eth0']['ipv4_secondaries'][0]['address'] }}"]
+    "datacenter": "{{ datacenter_name }}"
 }
 
