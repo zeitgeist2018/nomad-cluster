@@ -18,6 +18,10 @@ job "hello-nginx" {
         image = "nginxdemos/hello"
         ports = ["http"]
       }
+      resources {
+        cpu    = 64
+        memory = 32
+      }
     }
   }
 }
