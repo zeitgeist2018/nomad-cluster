@@ -21,8 +21,8 @@
   },
   "consul": {
      "address": "{{ ansible_facts['eth0']['ipv4_secondaries'][0]['address'] }}:8500",
-     "server_service_name": "node--server--{{ ansible_facts['eth0']['ipv4_secondaries'][0]['address'] | replace('.','-') }}",
-     "client_service_name": "node--client--{{ ansible_facts['eth0']['ipv4_secondaries'][0]['address'] | replace('.','-') }}",
+     "server_service_name": "nomad-server-node--{{ ansible_facts['eth0']['ipv4_secondaries'][0]['address'] | replace('.','-') }}",
+     "client_service_name": "nomad-client-node--{{ ansible_facts['eth0']['ipv4_secondaries'][0]['address'] | replace('.','-') }}",
      "auto_advertise": true,
      "server_auto_join": true,
      "client_auto_join": true
