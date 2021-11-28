@@ -9,18 +9,22 @@ LINODE_API_KEY="${linode_api_key}"
 
 echo "LINODE_API_KEY=\"$LINODE_API_KEY\"" >> /etc/environment
 
+addAlias(){
+  echo "alias $1=\"$2\"" >> /etc/environment
+}
+
 prepareSystem() {
   echo $'\e[1;33m'Preparing system$'\e[0m'
   apt update -y
   apt upgrade -y
   apt install -y unzip
-  echo "alias nomad-logs=\"journalctl -u nomad -f\"" >> /etc/environment
-  echo "alias nomad-restart=\"systemctl restart nomad\"" >> /etc/environment
-  echo "alias nomad-config=\"nano /etc/nomad.d/nomad.json\"" >> /etc/environment
-
-  echo "alias consul-logs=\"journalctl -u consul -f\"" >> /etc/environment
-  echo "alias consul-restart=\"systemctl restart consul\"" >> /etc/environment
-  echo "alias consul-config=\"nano /etc/consul.d/consul.json\"" >> /etc/environment
+  for app in "nomad" "consul"
+  do
+      addAlias "$app-restart" "systemctl restart $app"
+      addAlias "$app-stop" "systemctl stop $app"
+      addAlias "$app-logs" "journalctl -u $app -f"
+      addAlias "$app-config" "nano /etc/$app.d/$app.json"
+  done
 }
 
 installAnsible() {
