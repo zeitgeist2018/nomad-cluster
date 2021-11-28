@@ -39,7 +39,10 @@ resource local_file root_password_file {
 resource linode_stackscript init_script {
   label = "nomad-node-provision"
   description = "Provisions a Nomad node"
-  script = templatefile("provision.sh", {linode_api_key = var.linode_api_key})
+  script = templatefile("provision.sh", {
+    linode_api_key = var.linode_api_key,
+    slack_token = var.slack_token
+  })
   images = ["linode/ubuntu21.10"]
 }
 
