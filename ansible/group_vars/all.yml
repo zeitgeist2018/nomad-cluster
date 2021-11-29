@@ -2,3 +2,4 @@
 datacenter_name: dc1
 datacenter_region: europe
 user: root
+linode_token: "{{ lookup('env', 'LINODE_TOKEN') }}"
