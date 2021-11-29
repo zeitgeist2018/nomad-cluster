@@ -5,9 +5,11 @@ exec >/var/log/provision/provision.log 2>/var/log/provision/provision-error.log
 
 LINODE_TOKEN="${linode_token}"
 SLACK_TOKEN="${slack_token}"
+NOMAD_SERVER_COUNT="${nomad_server_count}"
 
 echo "LINODE_TOKEN=\"$LINODE_TOKEN\"" >> /etc/environment
 echo "SLACK_TOKEN=\"$SLACK_TOKEN\"" >> /etc/environment
+echo "NOMAD_SERVER_COUNT=\"$NOMAD_SERVER_COUNT\"" >> /etc/environment
 
 addAlias(){
   echo "alias $1=\"$2\"" >> /etc/environment

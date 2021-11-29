@@ -41,7 +41,8 @@ resource linode_stackscript init_script {
   description = "Provisions a Nomad node"
   script = templatefile("provision.sh", {
     linode_token = var.linode_token,
-    slack_token = var.slack_token
+    slack_token = var.slack_token,
+    nomad_server_count = length(linode_instance.nomad-nodes)
   })
   images = ["linode/ubuntu21.10"]
 }

@@ -6,7 +6,7 @@
   "name": "nomad-node--{{ ansible_facts['eth0']['ipv4_secondaries'][0]['address'] | replace('.','-') }}",
   "server": {
     "enabled": true,
-    "bootstrap_expect": 1,
+    "bootstrap_expect": {{ nomad_server_count }},
     "job_gc_threshold": "1m",
     "server_join": {
         "retry_join": ["provider=linode region=ca-central tag_name=nomad-node api_token={{ linode_token }}"]
