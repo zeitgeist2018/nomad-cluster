@@ -1,0 +1,5 @@
+[DEFAULT]
+bantime = 24h
+bantime.increment = true
+logencoding = utf-8
+maxretry = 3

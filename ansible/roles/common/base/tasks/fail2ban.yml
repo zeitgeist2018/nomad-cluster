@@ -1,0 +1,13 @@
+---
+
+- name: install fail2ban
+  apt:
+    name:
+      - fail2ban
+    state: latest
+
+- name: Copy config file
+  copy: src=etc/fail2ban/jail.local dest=/etc/fail2ban/jail.local
+
+- name: Start service
+  shell: systemctl restart fail2ban.service
