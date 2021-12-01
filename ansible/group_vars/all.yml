@@ -3,4 +3,4 @@ datacenter_name: dc1
 datacenter_region: europe
 user: root
 linode_token: "{{ lookup('env', 'LINODE_TOKEN') }}"
-nomad_server_count: ""
+nomad_server_count: "{{ lookup('env', 'NOMAD_SERVER_COUNT') }}"
