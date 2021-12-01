@@ -1,6 +1,6 @@
 {
   "data_dir": "/etc/nomad/server",
-  "log_level": "debug",
+  "log_level": "info",
   "datacenter": "{{ datacenter_name }}",
   "region": "{{ datacenter_region }}",
   "name": "nomad-node--{{ ansible_facts['eth0']['ipv4_secondaries'][0]['address'] | replace('.','-') }}",
